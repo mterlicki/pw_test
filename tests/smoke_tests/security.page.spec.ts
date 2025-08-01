@@ -24,7 +24,7 @@ test.describe('Demo Bank - Security Page Tests', () => {
         
         // Verify we're on the security page
         await expect(page).toHaveURL('https://demo-bank.vercel.app/bezpieczenstwo.html');
-        await expect(page).toHaveTitle(/Demobank - Bankowość Internetowa - Bezpieczeństwo/);
+        await expect(page).toHaveTitle(/Demobank - Bankowość Internetowa - Bezpieczeństowo/);
     });
 
     test('should load security page directly', async () => {
@@ -33,6 +33,6 @@ test.describe('Demo Bank - Security Page Tests', () => {
         
         // Verify page title
         const title = await securityPage.getTitle();
-        expect(title).toContain('Demobank - Bankowość Internetowa - Bezpieczeństwo');
+        expect(title).toContain('Demobank - Bankowość Internetowa - Bezpieczeństowo');
     });
 });
