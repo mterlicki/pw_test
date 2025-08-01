@@ -35,8 +35,11 @@ npx playwright test --debug
 ## Project Structure
 
 ```
-├── e2e_tests/           # End-to-end test files
-│   └── example.spec.ts  # Demo bank smoke tests
+├── pages/              # Page Object Models
+│   └── landing.page.ts # Landing page object
+├── tests/              # Test files
+│   └── smoke_tests/    # Smoke test suites
+│       └── landing.page.spec.ts  # Landing page tests
 ├── playwright.config.ts # Playwright configuration
 └── README.md           # Project documentation
 ```
