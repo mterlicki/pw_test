@@ -36,10 +36,12 @@ npx playwright test --debug
 
 ```
 ├── pages/              # Page Object Models
-│   └── landing.page.ts # Landing page object
+│   ├── landing.page.ts # Landing page object
+│   └── security.page.ts# Security page object
 ├── tests/              # Test files
 │   └── smoke_tests/    # Smoke test suites
-│       └── landing.page.spec.ts  # Landing page tests
+│       ├── landing.page.spec.ts  # Landing page tests
+│       └── security.page.spec.ts # Security page tests
 ├── playwright.config.ts # Playwright configuration
 └── README.md           # Project documentation
 ```
@@ -48,9 +50,15 @@ npx playwright test --debug
 
 The project includes smoke tests for the demo bank application (https://demo-bank.vercel.app/):
 
-- Landing page load verification
+Landing Page Tests:
+- Page load verification
 - Login form validation
 - Password field security checks
+
+Security Page Tests:
+- Navigation from landing page
+- Direct page access verification
+- Page title verification
 
 ## Documentation
 
