@@ -6,7 +6,6 @@ export class LandingPage {
     readonly loginInput: Locator;
     readonly passwordInput: Locator;
     readonly loginError: Locator;
-    readonly securityLink: Locator;
 
     constructor(page: Page) {
         this.page = page;
@@ -14,7 +13,6 @@ export class LandingPage {
         this.loginInput = page.getByTestId('login-input');
         this.passwordInput = page.getByTestId('password-input');
         this.loginError = page.getByTestId('error-login-id');
-        this.securityLink = page.getByTestId('security-link');
     }
 
     async goto() {
@@ -33,9 +31,5 @@ export class LandingPage {
     async login(login: string, password: string) {
         await this.fillLoginForm(login, password);
         await this.loginButton.click();
-    }
-
-    async navigateToSecurity() {
-        await this.securityLink.click();
     }
 }
