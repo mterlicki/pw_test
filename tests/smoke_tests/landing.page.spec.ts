@@ -1,58 +1,54 @@
 import { test, expect } from '@playwright/test';
+import { LandingPage } from '../../pages/landing.page';
 
 test.describe('Demo Bank - Smoke Tests', () => {
+  let landingPage: LandingPage;
+
   test.beforeEach(async ({ page }) => {
-    await page.goto('https://demo-bank.vercel.app/');
+    landingPage = new LandingPage(page);
+    await landingPage.goto();
   });
 
-  test('should load the landing page successfully', async ({ page }) => {
+  test('should load the landing page successfully', async () => {
     // Check if the page loaded successfully
-    await expect(page).toHaveTitle('Demobank - Bankowość Internetowa - Logowanie');
+    const title = await landingPage.getTitle();
+    expect(title).toBe('Demobank - Bankowość Internetowa - Logowanie');
     
     // Verify login form elements are visible
-    const loginButton = page.getByTestId('login-button');
-    await expect(loginButton).toBeVisible();
-    await expect(loginButton).toBeDisabled();
+    await expect(landingPage.loginButton).toBeVisible();
+    await expect(landingPage.loginButton).toBeDisabled();
     
-    const loginInput = page.getByTestId('login-input');
-    await expect(loginInput).toBeVisible();
-    await expect(loginInput).toBeEmpty();
+    await expect(landingPage.loginInput).toBeVisible();
+    await expect(landingPage.loginInput).toBeEmpty();
     
-    const passwordInput = page.getByTestId('password-input');
-    await expect(passwordInput).toBeVisible();
-    await expect(passwordInput).toBeEmpty();
+    await expect(landingPage.passwordInput).toBeVisible();
+    await expect(landingPage.passwordInput).toBeEmpty();
   });
 
-  test('should validate login form inputs', async ({ page }) => {
-    const loginButton = page.getByTestId('login-button');
-    const loginInput = page.getByTestId('login-input');
-    const passwordInput = page.getByTestId('password-input');
-    
+  test('should validate login form inputs', async () => {
     // Initially button should be disabled
-    await expect(loginButton).toBeDisabled();
+    await expect(landingPage.loginButton).toBeDisabled();
     
     // Fill in login with valid credentials
-    await loginInput.fill('tester');
-    await expect(loginButton).toBeDisabled();
+    await landingPage.fillLoginForm('tester', '');
+    await expect(landingPage.loginButton).toBeDisabled();
     
     // Fill in password
-    await passwordInput.fill('password123');
+    await landingPage.fillLoginForm('tester', 'password123');
     
     // Verify login button state
-    await expect(loginButton).toBeVisible();
+    await expect(landingPage.loginButton).toBeVisible();
     
     // Verify error message appears
-    await expect(page.getByTestId('error-login-id')).toBeVisible();
+    await expect(landingPage.loginError).toBeVisible();
   });
 
-  test('should have a password atribute in password input', async ({ page }) => {
-    const passwordInput = page.getByTestId('password-input');
-    
+  test('should have a password attribute in password input', async () => {
     // Fill in some password
-    await passwordInput.fill('test123');
+    await landingPage.fillLoginForm('', 'test123');
     
     // Initially password should be hidden
-    await expect(passwordInput).toHaveAttribute('type', 'password');
+    await expect(landingPage.passwordInput).toHaveAttribute('type', 'password');
   });
 });
 
